@@ -5,19 +5,29 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
 public class ProductItem {
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
+	@Column(name = "ITEM_ID")
 	private Integer id;
-	@Column
+	
+	@Column(name = "ITEM_NAME")
 	private String itemName;
-	@Column
+	
+	@Column(name = "ITEM_DESCRIPTION")
 	private String itemDescription;
+	
 	@ManyToOne
+	@JoinColumn(name = "STOCK_ID")
 	private Stock stock;
+	
+	@ManyToOne
+	@JoinColumn(name = "ORDER_ID")
+	private Order order;
 
 	public Stock getStock() {
 		return stock;
@@ -64,7 +74,8 @@ public class ProductItem {
 
 	@Override
 	public String toString() {
-		return "ProductItem [id=" + id + ", itemName=" + itemName + ", itemDescription=" + itemDescription + ", stock=" + stock.getId() + "]";
+		return "ProductItem [id=" + id + ", itemName=" + itemName + ", itemDescription=" + itemDescription + ", stock="
+				+ stock.getId() + "]";
 	}
 
 }
